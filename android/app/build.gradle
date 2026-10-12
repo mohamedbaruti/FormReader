@@ -52,10 +52,10 @@ android {
 
 chaquopy {
     defaultConfig {
-        version = "3.11"
+        version = "3.10"
         pip {
-            install "numpy"
-            install "opencv-python"
+            install "numpy==1.26.2"
+            install "opencv-python==4.5.1.48"
             install "flask"
         }
         // the reader opens its files (form pictures, models, settings) from disk

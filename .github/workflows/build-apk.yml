@@ -22,7 +22,7 @@ jobs:
           java-version: "17"
       - uses: actions/setup-python@v6        # Chaquopy needs the same Python version as the app
         with:
-          python-version: "3.11"
+          python-version: "3.10"
       - name: Build the app
         run: |
           chmod +x gradlew
