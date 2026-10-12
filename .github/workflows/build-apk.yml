@@ -27,7 +27,13 @@ jobs:
         run: |
           chmod +x gradlew
           echo "sdk.dir=$ANDROID_HOME" > local.properties
-          ./gradlew --no-daemon --stacktrace assembleRelease
+          set -o pipefail
+          if ! ./gradlew --no-daemon assembleRelease 2>&1 | tee ../build.log; then
+            # show the reason on the build's summary page (the full log is in the step above)
+            grep -n -A25 "What went wrong" ../build.log | head -60 | sed ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g' | sed 's/^/::error title=Build failed::/'
+            grep -inE "error:|ERROR|failed" ../build.log | grep -v "^.*warning" | tail -25 | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g' | sed 's/^/::error title=Error lines::/'
+            exit 1
+          fi
           cp app/build/outputs/apk/release/app-release.apk ../NIDA-Enrolment.apk
       - uses: actions/upload-artifact@v4
         with:
