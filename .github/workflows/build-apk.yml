@@ -15,18 +15,18 @@ jobs:
       run:
         working-directory: android
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
-      - uses: actions/setup-python@v5        # Chaquopy needs the same Python version as the app
+      - uses: actions/setup-python@v6        # Chaquopy needs the same Python version as the app
         with:
           python-version: "3.11"
-      - uses: android-actions/setup-android@v3
       - name: Build the app
         run: |
           chmod +x gradlew
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
           ./gradlew --no-daemon --stacktrace assembleRelease
           cp app/build/outputs/apk/release/app-release.apk ../NIDA-Enrolment.apk
       - uses: actions/upload-artifact@v4
