@@ -1,0 +1,64 @@
+plugins {
+    id "com.android.application"
+    id "com.chaquo.python"          // Python inside the app (the Form Reader runs on the phone)
+}
+
+android {
+    namespace "com.formreader.nidaenrol"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.formreader.nidaenrol"
+        minSdk 29                  // Android 10 and newer (the Galaxy S22 Ultra has Android 12 or later)
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "arm64-v8a"  // 64-bit phones (all current Samsung Galaxy phones)
+        }
+    }
+
+    // One fixed key, so a newer version installs over the old one and keeps the saved enrolments.
+    signingConfigs {
+        release {
+            storeFile file("../keystore/nida-enrolment.jks")
+            storePassword "nidaenrol2026"
+            keyAlias "nida"
+            keyPassword "nidaenrol2026"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
+}
+
+chaquopy {
+    defaultConfig {
+        version = "3.11"
+        pip {
+            install "numpy"
+            install "opencv-python"
+            install "flask"
+        }
+        // the reader opens its files (form pictures, models, settings) from disk
+        extractPackages "app", "nidamobile"
+    }
+}

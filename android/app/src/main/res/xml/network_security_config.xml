@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The screens talk to the form reader inside the app at http://127.0.0.1, and the reader
+     loads the official lists from the lookup service (http://172.19.109.161:9002): plain http. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

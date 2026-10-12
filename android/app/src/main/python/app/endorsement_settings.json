@@ -1,0 +1,287 @@
+{
+  "_about": [
+    "Signatures and stamps on page 2, checked when the photo of page 2 is added in New Enrolment",
+    "(app/endorsements.py). The result is a note to the user: it never refuses a photo.",
+    "checks: what each box must have. needs: 'mark' = any signature or fingerprint;",
+    "  'writing' = a name and/or a signature; 'name_signature' = a name and a signature (the reader",
+    "  cannot tell a name from a signature: it looks for writing, and notes it when only one short",
+    "  piece of writing is found); 'stamp' = an official stamp.",
+    "  'numbers': the item number printed on the form; numbers_by_form gives other numbers for an edition.",
+    "boxes: where each box is on the reference page of each edition (x, y, width, height in pixels",
+    "  of app/forms/<edition>/page_1.png), WITHOUT the printed title at the top of the box.",
+    "  'rita' (item 69) is not checked, but a stamp in it must not be counted for its neighbours.",
+    "stamp_margin_mm: how far outside its box a stamp is still looked for (stamps are often put",
+    "  half outside the box). A stamp is counted for the box nearest to its centre, so a stamp in",
+    "  the next box is never counted twice.",
+    "stamp_min_mm: a stamp is at least this tall and this wide.",
+    "min_writing_mm2: less ink than this (square millimetres) in a box counts as nothing written.",
+    "Restart is not needed: this file is read each time."
+  ],
+  "enabled": true,
+  "stamp_margin_mm": {
+    "top": 16,
+    "bottom": 12,
+    "side": 4
+  },
+  "stamp_min_mm": 14,
+  "min_writing_mm2": 4,
+  "checks": [
+    {
+      "id": "applicant",
+      "numbers": "59",
+      "label": "Saini / alama ya dole la mwombaji",
+      "label_en": "Applicant's signature or fingerprint",
+      "needs": [
+        "mark"
+      ]
+    },
+    {
+      "id": "ward_officer",
+      "numbers": "60",
+      "label": "Jina, muhuri na saini ya afisa mtendaji",
+      "label_en": "Ward / village executive officer: name, stamp and signature",
+      "needs": [
+        "name_signature",
+        "stamp"
+      ]
+    },
+    {
+      "id": "immigration",
+      "numbers": "68",
+      "label": "Jina, muhuri na saini ya afisa uhamiaji",
+      "label_en": "Immigration officer: name, stamp and signature",
+      "needs": [
+        "name_signature",
+        "stamp"
+      ]
+    },
+    {
+      "id": "weo_employer",
+      "numbers": "70",
+      "label": "Jina, muhuri na saini ya WEO / mwajiri",
+      "label_en": "WEO / employer: signature and stamp",
+      "needs": [
+        "writing",
+        "stamp"
+      ]
+    },
+    {
+      "id": "nida_officer",
+      "numbers": "71",
+      "label": "Jina, muhuri na saini ya ofisa wa NIDA",
+      "label_en": "NIDA officer: signature",
+      "needs": [
+        "writing"
+      ]
+    }
+  ],
+  "boxes": {
+    "nida_1a_v15": {
+      "applicant": [
+        88,
+        1604,
+        712,
+        98
+      ],
+      "ward_officer": [
+        842,
+        1624,
+        740,
+        78
+      ],
+      "immigration": [
+        70,
+        2130,
+        368,
+        94
+      ],
+      "rita": [
+        452,
+        2130,
+        368,
+        94
+      ],
+      "weo_employer": [
+        834,
+        2130,
+        368,
+        94
+      ],
+      "nida_officer": [
+        1216,
+        2130,
+        368,
+        94
+      ]
+    },
+    "nida_1a_v14_green": {
+      "applicant": [
+        24,
+        1186,
+        560,
+        52
+      ],
+      "ward_officer": [
+        593,
+        1186,
+        611,
+        52
+      ],
+      "immigration": [
+        28,
+        1574,
+        294,
+        66
+      ],
+      "rita": [
+        327,
+        1574,
+        311,
+        66
+      ],
+      "weo_employer": [
+        643,
+        1574,
+        276,
+        66
+      ],
+      "nida_officer": [
+        924,
+        1574,
+        282,
+        66
+      ]
+    },
+    "nida_1a_v14_white": {
+      "applicant": [
+        24,
+        1186,
+        560,
+        52
+      ],
+      "ward_officer": [
+        593,
+        1186,
+        611,
+        52
+      ],
+      "immigration": [
+        28,
+        1574,
+        294,
+        66
+      ],
+      "rita": [
+        327,
+        1574,
+        311,
+        66
+      ],
+      "weo_employer": [
+        643,
+        1574,
+        276,
+        66
+      ],
+      "nida_officer": [
+        924,
+        1574,
+        282,
+        66
+      ]
+    },
+    "nida_1a_v14_green_voter": {
+      "applicant": [
+        60,
+        1218,
+        540,
+        50
+      ],
+      "ward_officer": [
+        605,
+        1218,
+        605,
+        50
+      ],
+      "immigration": [
+        50,
+        1608,
+        293,
+        88
+      ],
+      "rita": [
+        348,
+        1608,
+        298,
+        88
+      ],
+      "weo_employer": [
+        653,
+        1608,
+        284,
+        88
+      ],
+      "nida_officer": [
+        943,
+        1608,
+        266,
+        88
+      ]
+    },
+    "nida_1a_v14_white_voter": {
+      "applicant": [
+        60,
+        1218,
+        540,
+        50
+      ],
+      "ward_officer": [
+        605,
+        1218,
+        605,
+        50
+      ],
+      "immigration": [
+        50,
+        1608,
+        293,
+        88
+      ],
+      "rita": [
+        348,
+        1608,
+        298,
+        88
+      ],
+      "weo_employer": [
+        653,
+        1608,
+        284,
+        88
+      ],
+      "nida_officer": [
+        943,
+        1608,
+        266,
+        88
+      ]
+    }
+  },
+  "numbers_by_form": {
+    "_about": "item numbers printed on editions that number these boxes differently (one higher)",
+    "nida_1a_v14_green_voter": {
+      "applicant": "60",
+      "ward_officer": "61",
+      "immigration": "69",
+      "weo_employer": "71",
+      "nida_officer": "72"
+    },
+    "nida_1a_v14_white_voter": {
+      "applicant": "60",
+      "ward_officer": "61",
+      "immigration": "69",
+      "weo_employer": "71",
+      "nida_officer": "72"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "_help": "Optional. Tell the reader the exact format of a field, box by box: L = letter, D = digit, * = either. Only list fields whose format never changes. Characters in boxes beyond the pattern are treated as *. Remove the leading underscore from an example below to switch it on, then restart the app.",
+  "_example_secondary_certificate_number": "LDDDDDDDD",
+  "_example_driving_license_number": "LLDDDDDDDD",
+  "_example_voter_id_number": "LDDDDDDDDD",
+  "_example_birth_certificate_number": "DDDDDDDDDD"
+}

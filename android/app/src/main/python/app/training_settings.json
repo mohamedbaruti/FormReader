@@ -1,0 +1,26 @@
+{
+  "_about": [
+    "Settings for the Training page (training the handwriting reader on your own forms).",
+    "test_every: every Nth form uploaded is kept aside as a test form (1st, 11th, 21st... for 10).",
+    "  Test forms are checked like the others but never used for training; they measure",
+    "  whether a newly trained model reads better than the one in use.",
+    "few / enough: samples of one character below 'few' = needs more; from 'enough' on = enough.",
+    "accuracy_low / accuracy_ok: share of a character read right first time (on checked forms):",
+    "  below accuracy_low = often misread; below accuracy_ok = sometimes misread.",
+    "min_seen: a character's accuracy is only judged after it was seen this many times.",
+    "retrain_after: new characters collected since the last training before training is advised.",
+    "min_samples_to_train: training is refused below this many collected characters.",
+    "min_test_forms: fewer test forms than this = the old/new comparison is not reliable yet.",
+    "cnn_epochs: training rounds for the main model (3 = about 10-15 minutes on a normal CPU)."
+  ],
+  "test_every": 10,
+  "few": 30,
+  "enough": 100,
+  "accuracy_low": 0.85,
+  "accuracy_ok": 0.95,
+  "min_seen": 10,
+  "retrain_after": 500,
+  "min_samples_to_train": 200,
+  "min_test_forms": 5,
+  "cnn_epochs": 3
+}

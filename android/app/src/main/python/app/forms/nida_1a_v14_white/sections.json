@@ -1,0 +1,425 @@
+{
+ "sections": [
+  {
+   "id": "A",
+   "page": 0,
+   "title": "Taarifa Binafsi",
+   "subtitle": "Personal details",
+   "fields": [
+    {
+     "name": "first_name",
+     "label": "1. Jina la kwanza",
+     "label_en": "First name"
+    },
+    {
+     "name": "middle_name",
+     "label": "2. Jina la kati",
+     "label_en": "Middle name"
+    },
+    {
+     "name": "last_name",
+     "label": "3. Jina la mwisho",
+     "label_en": "Last name"
+    },
+    {
+     "name": "other_names",
+     "label": "4. Majina mengine",
+     "label_en": "Other names"
+    },
+    {
+     "name": "date_of_birth",
+     "label": "5. Tarehe ya kuzaliwa",
+     "label_en": "Date of birth"
+    },
+    {
+     "name": "birth_certificate_number",
+     "label": "6. Namba ya cheti cha kuzaliwa",
+     "label_en": "Birth certificate no."
+    },
+    {
+     "name": "phone_number",
+     "label": "7. Namba ya simu",
+     "label_en": "Phone number"
+    },
+    {
+     "name": "sex",
+     "label": "8. Jinsi",
+     "label_en": "Sex"
+    },
+    {
+     "name": "marital_status",
+     "label": "9. Taarifa za ndoa",
+     "label_en": "Marital status"
+    },
+    {
+     "name": "employment_status",
+     "label": "10. Kazi",
+     "label_en": "Employment"
+    },
+    {
+     "name": "employer_name",
+     "label": "11. Jina la mwajiri / taasisi",
+     "label_en": "Employer"
+    },
+    {
+     "name": "primary_school",
+     "label": "12. Shule ya msingi",
+     "label_en": "Primary school"
+    },
+    {
+     "name": "primary_school_district",
+     "label": "13. Wilaya ya shule ya msingi",
+     "label_en": "Primary school district"
+    },
+    {
+     "name": "primary_school_completion_year",
+     "label": "14. Mwaka wa kuhitimu",
+     "label_en": "Year completed"
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "page": 0,
+   "title": "Taarifa za Wazazi",
+   "subtitle": "Parent details",
+   "fields": [
+    {
+     "name": "father_first_name",
+     "label": "15. Jina la kwanza la baba",
+     "label_en": "Father's first name"
+    },
+    {
+     "name": "father_middle_name",
+     "label": "16. Jina la kati la baba",
+     "label_en": "Father's middle name"
+    },
+    {
+     "name": "father_last_name",
+     "label": "17. Jina la mwisho la baba",
+     "label_en": "Father's last name"
+    },
+    {
+     "name": "father_country_of_birth",
+     "label": "18. Nchi alimozaliwa baba",
+     "label_en": "Father's country of birth"
+    },
+    {
+     "name": "father_date_of_birth",
+     "label": "19. Tarehe ya kuzaliwa baba",
+     "label_en": "Father's date of birth"
+    },
+    {
+     "name": "mother_first_name",
+     "label": "20. Jina la kwanza la mama",
+     "label_en": "Mother's first name"
+    },
+    {
+     "name": "mother_middle_name",
+     "label": "21. Jina la kati la mama",
+     "label_en": "Mother's middle name"
+    },
+    {
+     "name": "mother_last_name",
+     "label": "22. Jina la mwisho la mama",
+     "label_en": "Mother's last name"
+    },
+    {
+     "name": "mother_country_of_birth",
+     "label": "23. Nchi alimozaliwa mama",
+     "label_en": "Mother's country of birth"
+    },
+    {
+     "name": "mother_date_of_birth",
+     "label": "24. Tarehe ya kuzaliwa mama",
+     "label_en": "Mother's date of birth"
+    }
+   ]
+  },
+  {
+   "id": "C",
+   "page": 0,
+   "title": "Taarifa za Uraia",
+   "subtitle": "Citizenship details",
+   "fields": [
+    {
+     "name": "birth_country",
+     "label": "25. Nchi (mahali pa kuzaliwa)",
+     "label_en": "Country of birth"
+    },
+    {
+     "name": "birth_region",
+     "label": "26. Mkoa",
+     "label_en": "Region of birth"
+    },
+    {
+     "name": "birth_district",
+     "label": "27. Wilaya",
+     "label_en": "District of birth"
+    },
+    {
+     "name": "birth_ward",
+     "label": "28. Kata / wadi",
+     "label_en": "Ward of birth"
+    },
+    {
+     "name": "citizenship_by",
+     "label": "29. Raia wa Tanzania kwa",
+     "label_en": "Citizen by"
+    },
+    {
+     "name": "registration_certificate_number",
+     "label": "30. Namba ya cheti cha kujiandikisha",
+     "label_en": "Registration certificate no."
+    },
+    {
+     "name": "dn_number",
+     "label": "31. DN",
+     "label_en": "DN number"
+    }
+   ]
+  },
+  {
+   "id": "D",
+   "page": 1,
+   "title": "Mahali Unapoishi Mwombaji",
+   "subtitle": "Current residence",
+   "fields": [
+    {
+     "name": "residence_house_number",
+     "label": "32. Namba ya nyumba",
+     "label_en": "House number"
+    },
+    {
+     "name": "residence_region",
+     "label": "33. Mkoa",
+     "label_en": "Region"
+    },
+    {
+     "name": "residence_postcode",
+     "label": "34. Postikodi",
+     "label_en": "Postcode"
+    },
+    {
+     "name": "residence_district",
+     "label": "35. Wilaya",
+     "label_en": "District"
+    },
+    {
+     "name": "residence_ward",
+     "label": "36. Kata / wadi",
+     "label_en": "Ward"
+    },
+    {
+     "name": "residence_village_street",
+     "label": "37. Kijiji / mtaa / shehia",
+     "label_en": "Village / street"
+    },
+    {
+     "name": "residence_hamlet_road",
+     "label": "38. Kitongoji / barabara",
+     "label_en": "Hamlet / road"
+    },
+    {
+     "name": "residence_po_box",
+     "label": "39. Sanduku la posta",
+     "label_en": "P.O. Box"
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "page": 1,
+   "title": "Anuani ya Makazi ya Kudumu",
+   "subtitle": "Permanent address",
+   "fields": [
+    {
+     "name": "permanent_country",
+     "label": "40. Nchi",
+     "label_en": "Country"
+    },
+    {
+     "name": "permanent_region",
+     "label": "41. Mkoa",
+     "label_en": "Region"
+    },
+    {
+     "name": "permanent_postcode",
+     "label": "42. Postikodi",
+     "label_en": "Postcode"
+    },
+    {
+     "name": "permanent_district",
+     "label": "43. Wilaya",
+     "label_en": "District"
+    },
+    {
+     "name": "permanent_ward",
+     "label": "44. Kata / wadi",
+     "label_en": "Ward"
+    },
+    {
+     "name": "permanent_village_street",
+     "label": "45. Kijiji / mtaa / shehia",
+     "label_en": "Village / street"
+    },
+    {
+     "name": "permanent_hamlet_road",
+     "label": "46. Kitongoji / barabara",
+     "label_en": "Hamlet / road"
+    }
+   ]
+  },
+  {
+   "id": "F",
+   "page": 1,
+   "title": "Kumbukumbu Binafsi",
+   "subtitle": "Personal records (tick = attached)",
+   "fields": [
+    {
+     "name": "passport_number",
+     "label": "47. Namba ya pasipoti",
+     "label_en": "Passport no.",
+     "attached_flag": "passport_attached"
+    },
+    {
+     "name": "father_national_id",
+     "label": "48. Kitambulisho cha taifa cha baba",
+     "label_en": "Father's national ID",
+     "attached_flag": "father_national_id_attached"
+    },
+    {
+     "name": "mother_national_id",
+     "label": "49. Kitambulisho cha taifa cha mama",
+     "label_en": "Mother's national ID",
+     "attached_flag": "mother_national_id_attached"
+    },
+    {
+     "name": "driving_license_number",
+     "label": "50. Namba ya leseni ya udereva",
+     "label_en": "Driving licence no.",
+     "attached_flag": "driving_license_attached"
+    },
+    {
+     "name": "voter_id_number",
+     "label": "51. Namba ya kupiga kura (NEC/ZEC)",
+     "label_en": "Voter ID no.",
+     "attached_flag": "voter_id_attached"
+    },
+    {
+     "name": "health_insurance_number",
+     "label": "52. Namba ya bima ya afya",
+     "label_en": "Health insurance no.",
+     "attached_flag": "health_insurance_attached"
+    },
+    {
+     "name": "tin_number",
+     "label": "53. Namba ya mlipa kodi (TIN)",
+     "label_en": "TIN",
+     "attached_flag": "tin_attached"
+    },
+    {
+     "name": "zanzibar_resident_id",
+     "label": "54. Kitambulisho cha Mzanzibari mkaazi",
+     "label_en": "Zanzibar resident ID",
+     "attached_flag": "zanzibar_resident_id_attached"
+    },
+    {
+     "name": "social_security_fund",
+     "label": "55. Aina ya mfuko wa hifadhi ya jamii",
+     "label_en": "Social security fund",
+     "attached_flag": "social_security_fund_attached"
+    },
+    {
+     "name": "social_security_number",
+     "label": "56. Namba ya uanachama wa mfuko",
+     "label_en": "Social security no.",
+     "attached_flag": "social_security_number_attached"
+    },
+    {
+     "name": "secondary_certificate_number",
+     "label": "57. Cheti cha elimu ya sekondari",
+     "label_en": "Secondary certificate no.",
+     "attached_flag": "secondary_certificate_attached"
+    },
+    {
+     "name": "advanced_secondary_certificate_number",
+     "label": "58. Cheti cha sekondari ya juu",
+     "label_en": "Advanced secondary certificate no.",
+     "attached_flag": "advanced_secondary_certificate_attached"
+    }
+   ]
+  },
+  {
+   "id": "G",
+   "page": 1,
+   "title": "Tamko la Mwombaji",
+   "subtitle": "Applicant's declaration",
+   "fields": [
+    {
+     "name": "applicant_signature",
+     "label": "59. Saini / alama ya dole",
+     "label_en": "Applicant's signature"
+    },
+    {
+     "name": "declaration_date",
+     "label": "59. Tarehe",
+     "label_en": "Declaration date"
+    },
+    {
+     "name": "officer_stamp_signature",
+     "label": "60. Jina, muhuri na saini ya afisa",
+     "label_en": "Officer's name, stamp and signature"
+    },
+    {
+     "name": "officer_date",
+     "label": "60. Tarehe",
+     "label_en": "Officer's date"
+    }
+   ]
+  },
+  {
+   "id": "H",
+   "page": 1,
+   "title": "Kwa Matumizi ya Ofisi Tu",
+   "subtitle": "Office use only",
+   "fields": [
+    {
+     "name": "registration_centre_number",
+     "label": "61. Namba ya kituo",
+     "label_en": "Registration centre no."
+    },
+    {
+     "name": "office_region",
+     "label": "62. Mkoa",
+     "label_en": "Region"
+    },
+    {
+     "name": "office_district",
+     "label": "63. Wilaya",
+     "label_en": "District"
+    },
+    {
+     "name": "office_ward",
+     "label": "64. Kata / wadi",
+     "label_en": "Ward"
+    },
+    {
+     "name": "registration_centre_name",
+     "label": "65. Jina la kituo",
+     "label_en": "Registration centre name"
+    },
+    {
+     "name": "application_date",
+     "label": "66. Tarehe ya maombi",
+     "label_en": "Application date"
+    },
+    {
+     "name": "registrar_name",
+     "label": "67. Jina la afisa msajili",
+     "label_en": "Registrar's name"
+    }
+   ]
+  }
+ ]
+}

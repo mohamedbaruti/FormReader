@@ -1,0 +1,67 @@
+{
+  "_about": [
+    "Logic checks on the values read from Form 1A, run while the user edits and again when saving.",
+    "Change the numbers here and restart the reader (python run.py). Nothing is hard-coded in the program.",
+    "enabled: false switches a check off.",
+    "severity: \"error\" = must be corrected before the enrolment can be saved;",
+    "          \"warning\" = shown to the user, but saving is still allowed.",
+    "max_year: null means 'this year'."
+  ],
+
+  "applicant_birth_year": {
+    "_item": "Section A, item 5: year of birth",
+    "enabled": true,
+    "severity": "error",
+    "min_year": 1920,
+    "max_year": 2008
+  },
+
+  "phone_number": {
+    "_item": "Section A, item 7: phone number",
+    "enabled": true,
+    "severity": "error",
+    "digits": 10,
+    "required": true
+  },
+
+  "employer_name_when_employed": {
+    "_item": "Section A, items 10 and 11: if 'employed' is ticked, the employer's name must be filled in",
+    "enabled": true,
+    "severity": "error",
+    "statuses": ["employed"]
+  },
+
+  "primary_school_completion_year": {
+    "_item": "Section A, item 14: year primary school was completed, compared with the year of birth",
+    "enabled": true,
+    "severity": "error",
+    "min_years_after_birth": 10,
+    "not_after_this_year": true
+  },
+
+  "middle_name_is_father_first_name": {
+    "_item": "Section A item 2 (middle name) must be the same as section B item 15 (father's first name). Switched off: many people's middle name is not their father's first name",
+    "enabled": false,
+    "severity": "error"
+  },
+
+  "father_birth_year": {
+    "_item": "Section B, item 19: father's year of birth; the father must be at least this many years older than the applicant",
+    "enabled": true,
+    "severity": "error",
+    "min_years_older_than_applicant": 15
+  },
+
+  "mother_birth_year": {
+    "_item": "Section B, item 24: mother's year of birth; the mother must be at least this many years older than the applicant",
+    "enabled": true,
+    "severity": "error",
+    "min_years_older_than_applicant": 13
+  },
+
+  "names_from_official_list": {
+    "_item": "Region, district and ward fields: the value must be a name from the official list, and the district must be in the chosen region, the ward in the chosen district (app/lookup_settings.json)",
+    "enabled": true,
+    "severity": "error"
+  }
+}

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form Reader</title>
+<style>
+  :root {
+    --bg: #f4f5f2; --panel: #ffffff; --ink: #1d2320; --muted: #66706a; --line: #dfe3dd;
+    --accent: #1f6f4a; --accent-soft: #e3f1e9; --warn: #b45309; --warn-soft: #fff4e5; --err: #b42318;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { padding: 18px 24px; border-bottom: 1px solid var(--line); background: var(--panel);
+           display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  header h1 { font-size: 18px; margin: 0; }
+  header span { color: var(--muted); font-size: 13px; }
+  main { max-width: 1200px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  #drop { border: 2px dashed #b9c2bb; border-radius: 10px; background: var(--panel);
+          padding: 34px 20px; text-align: center; cursor: pointer; transition: .15s; }
+  #drop.over { border-color: var(--accent); background: var(--accent-soft); }
+  #drop strong { display: block; font-size: 16px; margin-bottom: 4px; }
+  #drop small { color: var(--muted); }
+  #status { margin: 14px 2px; min-height: 22px; color: var(--muted); }
+  #status.err { color: var(--err); font-weight: 600; }
+
+  #result { display: none; }
+  .bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 6px 0 14px; }
+  .bar .meta { color: var(--muted); font-size: 13px; margin-right: auto; }
+  button { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+           border-radius: 7px; padding: 7px 13px; cursor: pointer; }
+  button:hover { border-color: #aab4ad; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.primary:disabled { opacity: .55; cursor: default; }
+  label.inline { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; align-items: start; }
+  @media (max-width: 960px) { .layout { grid-template-columns: 1fr; } }
+
+  .fields { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .row { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 4px 14px; padding: 10px 14px;
+         border-top: 1px solid var(--line); align-items: center; }
+  .row:first-child { border-top: 0; }
+  .row.flagged { background: var(--warn-soft); }
+  .row .name { font-size: 13px; font-weight: 600; }
+  .row .name em { display: block; font-style: normal; font-weight: 500; color: var(--warn); font-size: 12px; }
+  .row .img { grid-column: 2; overflow-x: auto; }
+  .row .img img { height: 44px; display: block; border-radius: 3px; }
+  .row .val { grid-column: 2; }
+  .row input[type=text], .row select { width: 100%; max-width: 520px; font: 15px var(--mono);
+         letter-spacing: .06em; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; }
+  .row input.changed { border-color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 640px) { .row { grid-template-columns: 1fr; } .row .img, .row .val { grid-column: 1; } }
+
+  aside { position: sticky; top: 12px; background: var(--panel); border: 1px solid var(--line);
+          border-radius: 10px; padding: 12px; }
+  aside h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 2px 0 8px; }
+  pre { margin: 0; font: 12.5px/1.4 var(--mono); max-height: 70vh; overflow: auto; white-space: pre-wrap;
+        word-break: break-word; }
+  .note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .ok { color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Form Reader</h1>
+  <span>Form 1A &middot; scanned PDF or photo &rarr; JSON &middot; runs on this computer</span>
+</header>
+<main>
+  <div id="drop" tabindex="0">
+    <strong>Drop the scanned PDF or photo here, or click to choose</strong>
+    <small>One form at a time: a PDF, or photo(s) of its page(s), page 1 first. JPG and PNG work.</small>
+    <input id="file" type="file" accept="application/pdf,.pdf,image/jpeg,image/png,.jpg,.jpeg,.png" multiple hidden>
+  </div>
+  <div id="status"></div>
+
+  <section id="result">
+    <div class="bar">
+      <div class="meta" id="meta"></div>
+      <label class="inline"><input type="checkbox" id="onlyFlagged"> Show only fields to check</label>
+      <button id="copy">Copy JSON</button>
+      <button id="download">Download JSON</button>
+      <button id="confirm" class="primary">Confirm &amp; save</button>
+    </div>
+    <div class="layout">
+      <div class="fields" id="fields"></div>
+      <aside>
+        <h2>JSON output</h2>
+        <pre id="json"></pre>
+        <div class="note" id="saveNote">Check each value against the handwriting image, correct any mistakes,
+          then press <b>Confirm &amp; save</b>. Corrections are kept as training samples so the reader
+          learns your forms' handwriting.</div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let job = null;          // server response for the current upload
+let values = {};         // current (possibly corrected) values
+
+function setStatus(msg, isErr) {
+  $("status").textContent = msg;
+  $("status").className = isErr ? "err" : "";
+}
+
+function renderJson() {
+  $("json").textContent = JSON.stringify(values, null, 2);
+}
+
+function field(f) {
+  const row = document.createElement("div");
+  row.className = "row" + (f.flagged ? " flagged" : "");
+  row.dataset.flagged = f.flagged ? "1" : "";
+  const name = document.createElement("div");
+  name.className = "name";
+  name.textContent = f.label;
+  if (f.flagged) name.insertAdjacentHTML("beforeend", "<em>Please check</em>");
+  const img = document.createElement("div");
+  img.className = "img";
+  img.innerHTML = `<img alt="" src="${f.image}">`;
+  const val = document.createElement("div");
+  val.className = "val";
+
+  let input;
+  if (f.type === "check") {
+    input = document.createElement("select");
+    const opts = [""].concat(f.options);
+    if (f.value && !opts.includes(f.value)) opts.push(f.value);   // e.g. two boxes ticked
+    for (const o of opts) {
+      const op = document.createElement("option");
+      op.value = o; op.textContent = o ? o.replace(/_/g, " ") : "(none ticked)";
+      input.appendChild(op);
+    }
+    input.value = f.value || "";
+    input.onchange = () => { values[f.name] = input.value || null; renderJson(); };
+  } else if (f.type === "flag") {
+    input = document.createElement("select");
+    input.innerHTML = '<option value="true">ticked (yes)</option><option value="false">not ticked (no)</option>';
+    input.value = String(!!f.value);
+    input.onchange = () => { values[f.name] = input.value === "true"; renderJson(); };
+  } else {
+    input = document.createElement("input");
+    input.type = "text";
+    input.value = f.value || "";
+    input.placeholder = f.type.startsWith("date") ? "DD/MM/YYYY (empty)" : "(empty)";
+    input.oninput = () => {
+      const v = input.value.toUpperCase().replace(/\s+/g, " ").trim();
+      values[f.name] = v || null;
+      input.classList.toggle("changed", (v || null) !== f.value);
+      renderJson();
+    };
+  }
+  input.setAttribute("aria-label", f.label);
+  val.appendChild(input);
+  row.append(name, img, val);
+  return row;
+}
+
+function show(res) {
+  job = res;
+  values = Object.assign({}, res.data);
+  const box = $("fields");
+  box.innerHTML = "";
+  res.fields.forEach((f) => box.appendChild(field(f)));
+  const n = res.needs_review.length;
+  $("meta").innerHTML = `<b>${escapeHtml(res.filename)}</b> &middot; ${escapeHtml(res.form_title || "")} &middot; read in ${res.processing_seconds}s &middot; ` +
+    (n ? `<span style="color:var(--warn)">${n} field${n > 1 ? "s" : ""} to check</span>` : "no fields flagged");
+  $("confirm").disabled = false;
+  $("confirm").textContent = "Confirm & save";
+  $("saveNote").className = "note";
+  $("onlyFlagged").checked = false;
+  renderJson();
+  $("result").style.display = "block";
+  if (res.warnings && res.warnings.length) setStatus(res.warnings.join(" "), true);
+  else setStatus("");
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+async function upload(fileList) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+  const ok = (f) => /\.(pdf|jpe?g|png)$/i.test(f.name) || /^(application\/pdf|image\/(jpeg|png))$/.test(f.type);
+  const bad = files.find((f) => !ok(f));
+  if (bad) { setStatus(`${bad.name}: please choose a PDF or a JPG/PNG photo.`, true); return; }
+  files.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  const label = files.map((f) => f.name).join(", ");
+  setStatus(`Reading ${label}…`);
+  $("result").style.display = "none";
+  const fd = new FormData();
+  files.forEach((f) => fd.append("file", f));
+  try {
+    const r = await fetch("/api/extract?review=1", { method: "POST", body: fd });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || r.statusText);
+    show(res);
+  } catch (e) {
+    setStatus("Could not read the form: " + e.message, true);
+  }
+}
+
+$("drop").onclick = () => $("file").click();
+$("drop").onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") $("file").click(); };
+$("file").onchange = (e) => { upload(e.target.files); e.target.value = ""; };
+["dragenter", "dragover"].forEach((t) => $("drop").addEventListener(t, (e) => {
+  e.preventDefault(); $("drop").classList.add("over"); }));
+["dragleave", "drop"].forEach((t) => $("drop").addEventListener(t, (e) => {
+  e.preventDefault(); $("drop").classList.remove("over"); }));
+$("drop").addEventListener("drop", (e) => upload(e.dataTransfer.files));
+
+$("onlyFlagged").onchange = (e) => {
+  document.querySelectorAll(".row").forEach((r) => {
+    r.style.display = e.target.checked && !r.dataset.flagged ? "none" : "";
+  });
+};
+
+$("copy").onclick = async () => {
+  await navigator.clipboard.writeText(JSON.stringify(values, null, 2));
+  $("copy").textContent = "Copied";
+  setTimeout(() => ($("copy").textContent = "Copy JSON"), 1200);
+};
+
+$("download").onclick = () => {
+  const blob = new Blob([JSON.stringify(values, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (job.filename || "form").split(",")[0].replace(/\.(pdf|jpe?g|png)$/i, "") + ".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+$("confirm").onclick = async () => {
+  $("confirm").disabled = true;
+  try {
+    const r = await fetch(`/api/jobs/${job.job_id}/confirm`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: values }),
+    });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || r.statusText);
+    values = res.data; renderJson();
+    $("confirm").textContent = "Saved";
+    $("saveNote").innerHTML = `<span class="ok">Saved to ${escapeHtml(res.saved_to)}.</span> ` +
+      `${res.training_samples_added} handwriting samples kept for training ` +
+      `(${res.characters_corrected} were corrections).`;
+  } catch (e) {
+    $("confirm").disabled = false;
+    setStatus("Could not save: " + e.message, true);
+  }
+};
+</script>
+</body>
+</html>

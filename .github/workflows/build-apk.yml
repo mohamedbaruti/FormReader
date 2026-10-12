@@ -1,0 +1,42 @@
+# Builds the Android app on GitHub's servers every time something is pushed.
+# The finished app (NIDA-Enrolment.apk) is attached to a GitHub Release, which you can open on
+# the phone: github.com/mohamedbaruti/FormReader/releases -> latest -> NIDA-Enrolment.apk
+name: Build Android app
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: actions/setup-python@v5        # Chaquopy needs the same Python version as the app
+        with:
+          python-version: "3.11"
+      - uses: android-actions/setup-android@v3
+      - name: Build the app
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon --stacktrace assembleRelease
+          cp app/build/outputs/apk/release/app-release.apk ../NIDA-Enrolment.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NIDA-Enrolment-apk
+          path: NIDA-Enrolment.apk
+      - name: Publish as a release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: NIDA Enrolment (build ${{ github.run_number }})
+          body: Install NIDA-Enrolment.apk on the phone.
+          files: NIDA-Enrolment.apk
